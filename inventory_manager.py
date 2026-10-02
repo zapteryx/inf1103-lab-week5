@@ -32,6 +32,13 @@ def get_menu_option():
             print("Invalid option. Please try again.")
     return option
 
+def display_products(inventory):
+    print("Current Inventory")
+    print("-" * 50)
+    for product in inventory:
+        print(f"ID: {product.id} | Name: {product.name} | Price: ${product.price:.2f} | Stock: {product.stock}")
+    print("-" * 50)
+
 print("=" * 50)
 print("INVENTORY MANAGEMENT SYSTEM")
 print("=" * 50)
@@ -42,4 +49,4 @@ print()
 while True:
     option = get_menu_option()
     if option == 1:
-        pass
+        display_products(inventory)
