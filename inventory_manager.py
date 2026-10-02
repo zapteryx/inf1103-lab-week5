@@ -35,8 +35,11 @@ def get_menu_option():
 def display_products(inventory):
     print("Current Inventory")
     print("-" * 50)
-    for product in inventory:
-        print(f"ID: {product.id} | Name: {product.name} | Price: ${product.price:.2f} | Stock: {product.stock}")
+    if not "products" in inventory or len(inventory["products"]) == 0:
+        print("There are no items in the inventory.")
+    else:
+        for product in inventory["products"]:
+            print(f"ID: {product['id']} | Name: {product['name']} | Price: ${product['price']:.2f} | Stock: {product['stock']}")
     print("-" * 50)
 
 print("=" * 50)
@@ -48,5 +51,6 @@ print("Inventory loaded successfully.")
 print()
 while True:
     option = get_menu_option()
+    print()
     if option == 1:
         display_products(inventory)
