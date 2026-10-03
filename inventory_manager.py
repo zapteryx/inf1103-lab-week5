@@ -67,7 +67,7 @@ def add_product_wizard(inventory):
     while True:
         product["price"] = input("Price: ")
         try:
-            product["price"] = int(product["price"])
+            product["price"] = float(product["price"])
             if product["price"] < 0:
                 print("The entered Price cannot be negative.")
                 continue
