@@ -106,6 +106,21 @@ def update_stock_wizard(inventory):
     print()
     print("Stock updated successfully!")
 
+def search_product_wizard(inventory):
+    print("Search Product")
+    product_id = input("Enter Product ID: ")
+    product = search_for_product(inventory, product_id)
+    if product == None:
+        print("Could not find a product with that Product ID. Returning to menu.")
+        return
+    print("Product Found")
+    print("-" * 50)
+    print("ID:", product["id"])
+    print("Name:", product["name"])
+    print(f"Price: ${product["price"]:.2f}")
+    print("Stock:", product["stock"])
+    print("-" * 50)
+
 print("=" * 50)
 print("INVENTORY MANAGEMENT SYSTEM")
 print("=" * 50)
@@ -121,3 +136,5 @@ while True:
         add_product_wizard(inventory)
     elif option == 3:
         update_stock_wizard(inventory)
+    elif option == 4:
+        search_product_wizard(inventory)
