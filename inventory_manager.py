@@ -8,9 +8,10 @@ def load_inventory():
             return data
     except FileNotFoundError:
         print('inventory.json not found. Using blank inventory.')
-        return {}
+        return {'products': []}
 
 def get_menu_option():
+    print()
     print("-" * 10, "MENU", "-" * 10)
     print("1. Display All Products")
     print("2. Add Product")
@@ -35,12 +36,60 @@ def get_menu_option():
 def display_products(inventory):
     print("Current Inventory")
     print("-" * 50)
-    if not "products" in inventory or len(inventory["products"]) == 0:
+    if len(inventory["products"]) == 0:
         print("There are no items in the inventory.")
     else:
         for product in inventory["products"]:
             print(f"ID: {product['id']} | Name: {product['name']} | Price: ${product['price']:.2f} | Stock: {product['stock']}")
     print("-" * 50)
+
+def search_for_product(inventory, id):
+    for product in inventory["products"]:
+        if product["id"] == id:
+            return product
+    return None
+
+def add_product_wizard(inventory):
+    print("Add New Product")
+    product = {}
+    while True:
+        product["id"] = input("Product ID: ")
+        if search_for_product(inventory, product["id"]) != None:
+            print("Product ID already exists. Please use a different Product ID.")
+            continue
+        break
+    while True:
+        product["name"] = input("Product Name: ")
+        if product["name"] == "":
+            print("Please provide a Product Name.")
+            continue
+        break
+    while True:
+        product["price"] = input("Price: ")
+        try:
+            product["price"] = int(product["price"])
+            if product["price"] < 0:
+                print("The entered Price cannot be negative.")
+                continue
+        except ValueError:
+            print("The entered Price is not a valid number.")
+            continue
+        break
+    while True:
+        product["stock"] = input("Stock Quantity: ")
+        try:
+            product["stock"] = int(product["stock"])
+            if product["stock"] < 0:
+                print("The entered Stock Quantity cannot be negative.")
+                continue
+        except ValueError:
+            print("The entered Stock Quantity is not a valid number.")
+            continue
+        break
+    print()
+    inventory["products"].append(product)
+    print("Product added successfully!")
+    
 
 print("=" * 50)
 print("INVENTORY MANAGEMENT SYSTEM")
@@ -48,9 +97,10 @@ print("=" * 50)
 print()
 inventory = load_inventory()
 print("Inventory loaded successfully.")
-print()
 while True:
     option = get_menu_option()
     print()
     if option == 1:
         display_products(inventory)
+    elif option == 2:
+        add_product_wizard(inventory)
