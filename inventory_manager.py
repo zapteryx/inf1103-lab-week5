@@ -89,7 +89,22 @@ def add_product_wizard(inventory):
     print()
     inventory["products"].append(product)
     print("Product added successfully!")
-    
+
+def update_stock_wizard(inventory):
+    print("Update Stock")
+    product_id = input("Enter Product ID: ")
+    product = search_for_product(inventory, product_id)
+    if product == None:
+        print("Could not find a product with that Product ID. Returning to menu.")
+        return
+    print("Product Found:")
+    print("Name:", product["name"])
+    print("Current Stock:", product["stock"])
+    print()
+    new_stock_qty = input("New Stock Quantity: ")
+    product["stock"] = new_stock_qty
+    print()
+    print("Stock updated successfully!")
 
 print("=" * 50)
 print("INVENTORY MANAGEMENT SYSTEM")
@@ -104,3 +119,5 @@ while True:
         display_products(inventory)
     elif option == 2:
         add_product_wizard(inventory)
+    elif option == 3:
+        update_stock_wizard(inventory)
