@@ -146,3 +146,9 @@ while True:
     elif option == 5:
         print("Saving inventory...")
         save_inventory(inventory)
+    elif option == 6:
+        print("Saving inventory before exit...")
+        save_inventory(inventory)
+        print()
+        print("Thank you for using Inventory Management System.")
+        exit()
