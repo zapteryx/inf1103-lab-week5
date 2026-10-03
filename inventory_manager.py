@@ -2,13 +2,13 @@ import json
 
 def load_inventory():
     try:
-        with open('inventory.json', 'r') as file:
+        with open("inventory.json", "r") as file:
             data = json.load(file)
-            print('inventory.json found.')
+            print("inventory.json found.")
             return data
     except FileNotFoundError:
-        print('inventory.json not found. Using blank inventory.')
-        return {'products': []}
+        print("inventory.json not found. Using blank inventory.")
+        return {"products": []}
 
 def get_menu_option():
     print()
@@ -121,6 +121,11 @@ def search_product_wizard(inventory):
     print("Stock:", product["stock"])
     print("-" * 50)
 
+def save_inventory(inventory):
+    with open("inventory.json", "w") as file:
+        json.dump(inventory, file, indent=4)
+    print("Inventory saved successfully to inventory.json.")
+
 print("=" * 50)
 print("INVENTORY MANAGEMENT SYSTEM")
 print("=" * 50)
@@ -138,3 +143,6 @@ while True:
         update_stock_wizard(inventory)
     elif option == 4:
         search_product_wizard(inventory)
+    elif option == 5:
+        print("Saving inventory...")
+        save_inventory(inventory)
