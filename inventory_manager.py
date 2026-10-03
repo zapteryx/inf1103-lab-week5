@@ -101,7 +101,16 @@ def update_stock_wizard(inventory):
     print("Name:", product["name"])
     print("Current Stock:", product["stock"])
     print()
-    new_stock_qty = input("New Stock Quantity: ")
+    while True:
+        try:
+            new_stock_qty = input("New Stock Quantity: ")
+            new_stock_qty = int(new_stock_qty)
+            if new_stock_qty < 0:
+                print("The entered Stock Quantity cannot be negative. Please try again.")
+        except ValueError:
+            print("The entered Stock Quantity is not a valid number. Please try again.")
+            continue
+        break
     product["stock"] = new_stock_qty
     print()
     print("Stock updated successfully!")
